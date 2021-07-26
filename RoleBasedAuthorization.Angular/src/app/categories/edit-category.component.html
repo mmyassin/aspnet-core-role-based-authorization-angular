@@ -1,0 +1,20 @@
+﻿<div id="container" style="padding-top: 10px; padding-bottom: 10px">
+  <h2>Editing Category: {{ category.name }}</h2>
+
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="name">Category Name</label>
+      <input type="text" name="name" id="name" style="width: 100%" class="form-control" [(ngModel)]="category.name">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="metadata">Metadata</label>
+      <input type="text" name="metadata" id="metadata" style="width: 100%" class="form-control" [(ngModel)]="category.metadata">
+    </div>
+    <div class="form-group col-md-6">
+      <button (click)="saveChanges()" [disabled]="loading" style="margin: 0 2px 0 2px" type="button" class="btn btn-info">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        Save
+      </button>
+    </div>
+  </div>
+</div>

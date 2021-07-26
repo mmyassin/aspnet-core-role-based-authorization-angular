@@ -1,0 +1,16 @@
+﻿<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user">
+  <div class="navbar-nav">
+    <a class="nav-item nav-link" routerLink="/">Home</a>
+    <a class="nav-item nav-link" routerLink="/admin" *ngIf="isGranted('Admin')">Admin</a>
+    <a class="nav-item nav-link" routerLink="/categories"
+       *ngIf="isGranted('Admin') || isGranted('Manager') ">Categories</a>
+    <a class="nav-item nav-link" routerLink="/products">Products</a>
+    <a class="nav-item nav-link" (click)="logout()">Logout</a>
+  </div>
+</nav>
+
+<!-- main app container -->
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

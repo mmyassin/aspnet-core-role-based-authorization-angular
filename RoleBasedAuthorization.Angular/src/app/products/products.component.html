@@ -1,0 +1,46 @@
+﻿<div id="container" style="padding-top: 10px; padding-bottom: 10px">
+  <div class="row">
+    <div class="form-group col-md-12">
+      <label for="filter">Filter</label>
+      <input type="text" name="filter" id="filter" style="width: 100%" class="form-control" [(ngModel)]="filter">
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-3">
+      <button (click)="getProducts()" style="width: 100%; margin: 0 2px 0 2px" type="button" class="btn btn-info">Search</button>
+    </div>
+    <div *ngIf="isGranted('Admin') || isGranted('Manager')"class="form-group col-md-3">
+      <button (click)="createProduct()" style="width: 100%; margin: 0 2px 0 2px" type="button" class="btn btn-info">Add new product</button>
+    </div>
+    <div *ngIf="isGranted('Admin')" class="form-group col-md-3">
+      <button (click)="deleteProducts()" [disabled]="selectedKeys.length <= 0" style="width: 100%; margin: 0 2px 0 2px" type="button" class="btn btn-danger">Delete selected Products</button>
+    </div>
+  </div>
+</div>
+<kendo-grid
+  [data]="gridData"
+  [skip]="gridState.skip"
+  [pageSize]="gridState.take"
+  [pageable]="true"
+  [selectable]="{enabled: true, checkboxOnly: true}"
+  (dataStateChange)="getProducts($event)"
+  height="400"
+  kendoGridSelectBy="id"
+  [selectedKeys]="selectedKeys">
+  <kendo-grid-checkbox-column width="4">
+    <ng-template kendoGridCellTemplate let-idx="rowIndex">
+      <input [kendoGridSelectionCheckbox]="idx" />
+    </ng-template>
+  </kendo-grid-checkbox-column>
+  <kendo-grid-column title="Name" width="28" field="name"></kendo-grid-column>
+  <kendo-grid-column title="Categoty" width="28" field="categoryName"></kendo-grid-column>
+  <kendo-grid-column title="Metadata" width="20" field="metadata"></kendo-grid-column>
+  <kendo-grid-column title="Actions" width="20" *ngIf="isGranted('Admin') || isGranted('Manager')">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <span>
+        <button (click)="editProduct(dataItem.id)" style="margin: 0 2px 0 2px" type="button" class="btn btn-sm btn-info">Edit</button>
+        <button *ngIf="isGranted('Admin')" (click)="deleteProducts(dataItem.id)" style="margin: 0 2px 0 2px" type="button" class="btn btn-sm btn-danger">Delete</button>
+      </span>
+    </ng-template>
+  </kendo-grid-column>
+</kendo-grid>

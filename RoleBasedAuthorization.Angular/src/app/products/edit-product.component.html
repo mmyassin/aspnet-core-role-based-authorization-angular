@@ -1,0 +1,41 @@
+﻿<div class="col-md-6 offset-md-3 mt-5">
+
+  <div class="card">
+    <h4 class="card-header">Editing Product: {{ product.name }}</h4>
+    <div class="card-body">
+      <div class="row">
+        <div class="form-group col-md-12">
+          <label for="name">Product Name</label>
+          <input type="text" name="name" id="name" style="width: 100%" class="form-control" [(ngModel)]="product.name">
+        </div>
+        <div class="form-group col-md-12">
+          <label for="metadata">Metadata</label>
+          <kendo-multiselect
+          [data]="metadataList"
+          [(ngModel)]="selectedMetadata">
+          </kendo-multiselect>
+        </div>
+        <div class="form-group col-md-12">
+          <label for="category">Category</label>
+          <kendo-dropdownlist
+            valueField="id"
+            textField="name"
+            (valueChange)="onCategoryValueChange()"
+            [data]="categoriesList"
+            [valuePrimitive]="true"
+            [(ngModel)]="product.categoryId"
+            style="width: 100%">
+          </kendo-dropdownlist>
+        </div>
+        <div class="form-group col-md-6">
+          <button (click)="saveChanges()" [disabled]="loading" style="margin: 0 2px 0 2px" type="button"
+                  class="btn btn-info">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
